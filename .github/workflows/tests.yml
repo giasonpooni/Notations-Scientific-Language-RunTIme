@@ -27,6 +27,8 @@ jobs:
         with:
           python-version: '3.12'
       - run: python -m pip install -e '.[dev]'
+      - name: Install pinned NISE package for contract/pipeline qualification
+        run: python -m pip install ./external/nise
       - name: Language parser tests
         run: python -m pytest -q --junitxml=nslr-tests.xml
       - name: Compile actual source and validate output with pinned NISE contract
@@ -34,14 +36,32 @@ jobs:
         run: |
           tmp="$(mktemp -d)"
           nsl compile examples/bearing.nsl --output "$tmp/compiled.json"
-          python - <<'PY' "$tmp/compiled.json"
-          import json, pathlib, sys
-          sys.path.insert(0, str(pathlib.Path('external/nise/src').resolve()))
+          python - <<'PY' "$tmp/compiled.json" "$tmp/query.json"
+          import json, sys
           from nise.contracts import validate_query
           value=json.load(open(sys.argv[1]))
-          validate_query(value['query'])
+          query=validate_query(value['query'])
           assert value['output_schema']=='nise.query.v1'
           assert value['claims']['provider_execution'] is False
+          with open(sys.argv[2],'w',encoding='utf-8') as f:
+              json.dump(query,f,indent=2,sort_keys=True)
+              f.write('\n')
+          PY
+          nise compile external/nise/examples/bearing_catalog.json "$tmp/query.json" --output "$tmp/schematic.json"
+          nise inspect "$tmp/schematic.json" > "$tmp/inspection.json"
+          python - <<'PY' "$tmp/schematic.json" "$tmp/inspection.json"
+          import json, sys
+          schematic=json.load(open(sys.argv[1]))
+          inspection=json.load(open(sys.argv[2]))
+          assert schematic['schema']=='nise.inference-schematic.v1'
+          assert schematic['claims']['candidate_structure'] is True
+          assert schematic['claims']['physical_truth_established'] is False
+          assert schematic['claims']['execution_authority'] is False
+          assert 'fault.classify.v1' in schematic['unresolved_capabilities']
+          assert all(n['status']!='HYPOTHESIZED'
+                     for key in ('V_q','M_q','C_q','O_q','P_q')
+                     for n in schematic[key])
+          assert inspection['schematic_id']==schematic['schematic_id']
           PY
       - name: Require no failures/errors/skips
         shell: bash
