@@ -1,0 +1,80 @@
+{
+  "schema": "notations.instrument.v1",
+  "identity": {
+    "name": "Notations Scientific Language Runtime",
+    "slug": "nslr",
+    "version": "0.1.0",
+    "maturity": "EXPERIMENT",
+    "brand": "Notation Systems",
+    "positioning": "Frontier Tooling and Instrumentation for Digital Futures"
+  },
+  "operation": {
+    "id": "nslr.compile-nise-query.v1",
+    "semantic_capability": "language.scientific.compile.v1",
+    "purpose": "Compile bounded declarative scientific intent into a nise.query.v1 contract.",
+    "deterministic_given_inputs": true,
+    "kind": "compute",
+    "effects": [
+      "read:scientific-intent",
+      "write:typed-query-contract"
+    ]
+  },
+  "provider": {
+    "id": "org.notationsystems.nslr",
+    "runtime_family": "python",
+    "execution_profile": "orchestration",
+    "execution_mode": "headless",
+    "resources": [
+      "cpu"
+    ],
+    "priority": 100,
+    "ports": {
+      "inputs": {
+        "source": {
+          "schema": "nsl.source.v1",
+          "unit": null,
+          "frame": null
+        }
+      },
+      "outputs": {
+        "query": {
+          "schema": "nise.query.v1",
+          "unit": null,
+          "frame": null
+        }
+      }
+    }
+  },
+  "implementation": {
+    "language": "Python",
+    "runtime": "CPython 3.11+",
+    "distribution": "notations-scientific-language-runtime",
+    "module": "nslr",
+    "command": "nsl",
+    "network_required": false,
+    "hardware_required": false
+  },
+  "model": {
+    "family": "bounded-line-oriented-parser",
+    "language": "nsl.v1"
+  },
+  "inputs": {
+    "source": "bounded declarative NSL text"
+  },
+  "outputs": {
+    "query": "typed nise.query.v1 contract"
+  },
+  "verification": {
+    "report_schema": "notations.verification.v1",
+    "canonical_specimen": "examples/bearing.nsl"
+  },
+  "representations": {
+    "readme": "README.md",
+    "architecture": "docs/ARCHITECTURE.md"
+  },
+  "limits": [
+    "Does not perform semantic retrieval or infer focus identities from prose.",
+    "Does not execute providers or select engines.",
+    "Does not establish physical truth, admit evidence, or authorize actuation."
+  ]
+}

@@ -1,0 +1,26 @@
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "notations-scientific-language-runtime"
+version = "0.1.0"
+description = "Declarative scientific intent compiler for Notation Systems typed workflow contracts."
+requires-python = ">=3.11"
+license = "MPL-2.0"
+readme = "README.md"
+dependencies = []
+
+[project.optional-dependencies]
+dev = ["pytest==9.0.2"]
+
+[project.scripts]
+nsl = "nslr.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
+addopts = "-ra"

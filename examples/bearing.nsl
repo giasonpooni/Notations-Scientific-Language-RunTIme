@@ -1,0 +1,10 @@
+# Synthetic bearing-vibration investigation
+query bearing-vibration-investigation
+question "What information and instruments are relevant to investigating elevated vibration at bearing_04?"
+focus bearing_04
+use signal.spectrum.v1
+use state.estimate.v1
+use fault.classify.v1
+hops 2
+budget 32
+hypotheses off
