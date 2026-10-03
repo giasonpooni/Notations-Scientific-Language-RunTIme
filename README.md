@@ -1,40 +1,46 @@
 # Notations Scientific Language Runtime
 
-**Express investigation intent through a small declarative frontend that targets existing typed contracts.**
+A small declarative language front end for Notation Systems Inc scientific workflows.
 
-The aim is to let users state a supported investigation without hand-authoring every transport field. It is not arbitrary Python/Julia/Rust/C++ translation or a universal mathematical proof system.
+The runtime's first responsibility is intentionally narrow:
 
-## Status
+> Compile concise scientific investigation intent into typed machine-readable contracts.
 
-This default-branch introduction describes the project. The first implementation is separately tracked in [PR #1](https://github.com/giasonpooni/Notations-Scientific-Language-RunTIme/pull/1). Use that branch's documentation for executable commands and its exact NISE dependency. This documentation does not merge or install it.
-
-The bounded prototype compiles line-oriented declarations—query, question, focus, semantic capability, hop budget, node budget and hypothesis policy—into `nslr.compilation.v1` containing `nise.query.v1`. It retains the source identity and uses NISE's existing query validator rather than inventing a competing contract.
-
-General equation authoring, symbolic manipulation, numerical lowering and automatic backend selection are future capabilities to qualify separately. A short language-to-schematic example does not establish them.
-
-## Notation Systems
-
-**Frontier Tooling and Instrumentation for Digital Futures.** We develop computational instruments and operational tooling connecting scientific methods, specialist computation and human expertise.
-
-[NET](https://github.com/giasonpooni/Notations-Systems-Terminal) retains composition and execution history. [NISE](https://github.com/giasonpooni/Notations-Inference-Schematics-Engine) constructs bounded candidate schematics; specialist instruments retain their mathematics; governed evidence and creative game state keep their separate authorities.
-
-[Organization profile](https://github.com/giasonpooni/Notations-Systems-Terminal/blob/b41b84922d4963a9206202029afd1e78b9451f9c/PUBLIC_POSITIONING.md) · [Research protocol](https://github.com/giasonpooni/Notations-Systems-Terminal/blob/b41b84922d4963a9206202029afd1e78b9451f9c/RESEARCH_PROGRAMME.md)
-
-## Composition boundary
+For NISE, that means:
 
 ```text
-supported declarative intent
-             ↓
-scientific-language compilation record
-             ↓
-        nise.query.v1
-             ↓
-   candidate inference schematic
-             ↓
- separately authorized NET operations
+scientific intent
+    ↓
+Notations Scientific Language Runtime
+    ↓
+nise.query.v1
+    ↓
+NISE schematic construction
 ```
 
-The last step is an integration target, not execution performed by this frontend. The compiler owns no graph traversal, evidence ranking, state estimation, provider execution, machine permission or physical truth.
+The Scientific Language Runtime does **not** own NISE graph traversal, evidence ranking, state estimation, provider execution, or physical truth.
+
+Implementation work proceeds on reviewable branches.
+
+## Organization
+
+**Notation Systems Inc** is the parent organization: a scientific computing and systems engineering company developing computational instruments, software and interactive environments for understanding and building physical and virtual systems.
+
+The company's development direction connects measurement, state estimation and sensor fusion, scientific modelling, simulation and execution, from materials and machines to interactive worlds.
+
+| Division | Focus |
+| --- | --- |
+| **Notations Gaming** | Games, graphics, world building, interactive environments and gameplay simulation. |
+| **Notations Manufacturing** | Design, machinery integration, process development, fabrication and production systems. |
+| **Notations Laboratories** | Research and experimental validation in scientific computing, measurement, physics and chemistry modelling, materials and simulation. |
+
+**Repository role:** This repository documents the shared **Notation Systems Inc** declarative front end for compiling scientific investigation intent into typed contracts. Its broader direction connects physical and virtual system investigations to existing instruments; NET retains session composition and execution, and NISE retains schematic construction.
+
+## Instrument role
+
+[NET](https://github.com/atomtrapping/Notations-Systems-Terminal) retains composition and execution history. [NISE](https://github.com/atomtrapping/Notations-Inference-Schematics-Engine) constructs bounded candidate schematics; specialist instruments retain their mathematics; governed evidence and creative game state keep their separate authorities.
+
+[Current organization](#organization) · [Historical research protocol](https://github.com/atomtrapping/Notations-Systems-Terminal/blob/b41b84922d4963a9206202029afd1e78b9451f9c/RESEARCH_PROGRAMME.md)
 
 ## Research profile
 
@@ -43,7 +49,3 @@ The last step is an integration target, not execution performed by this frontend
 Evaluate parser acceptance/refusal, round-trip meaning, source identity, NISE contract compatibility and preservation of unresolved capabilities. Compare user effort and error rates against direct contract authoring on fixed tasks. Mathematical sufficiency and practical usability are distinct tests.
 
 Extend the existing contracts and workbench rather than creating a second universal IR or scheduler. Python, Julia, Rust and C++ may implement future bindings; CUDA is a provider-specific execution choice, not a language property. A typecheck or successful parse is not a proof of the scientific model.
-
-## Publication and rights
-
-This profile adds no runtime code, dependencies, licence grant or deployment. Existing source terms and separately proposed licensing changes retain their own status. Public-interest tooling and Cartesian Graphics' private creative/IP direction do not themselves transfer ownership or establish nonprofit status.
