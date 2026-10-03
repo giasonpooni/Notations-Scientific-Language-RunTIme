@@ -62,3 +62,17 @@ def test_cli_create_only_output(tmp_path):
         "--output", str(output),
     ], text=True, capture_output=True, cwd=tmp_path)
     assert second.returncode == 1
+
+
+@pytest.mark.parametrize("content", [b"", b"x" * (128 * 1024 + 1)], ids=["empty", "oversized"])
+def test_cli_refuses_empty_or_oversized_source_without_output(tmp_path, content):
+    source = tmp_path / "source.nsl"
+    source.write_bytes(content)
+    output = tmp_path / "compiled.json"
+    result = subprocess.run([
+        sys.executable, "-m", "nslr.cli", "compile", str(source),
+        "--output", str(output),
+    ], text=True, capture_output=True, cwd=tmp_path)
+    assert result.returncode == 1
+    assert json.loads(result.stderr)["status"] == "refused"
+    assert not output.exists()

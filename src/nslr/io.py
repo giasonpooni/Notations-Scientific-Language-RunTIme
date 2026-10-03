@@ -11,7 +11,8 @@ def read_text(path: Path) -> str:
     path = Path(path)
     if path.is_symlink() or not path.is_file():
         raise ValueError("Scientific source must be a regular file")
-    raw = path.read_bytes()
+    with path.open("rb") as stream:
+        raw = stream.read(MAX_BYTES + 1)
     if not raw or len(raw) > MAX_BYTES:
         raise ValueError("Scientific source file exceeds 128 KiB or is empty")
     return raw.decode("utf-8")
